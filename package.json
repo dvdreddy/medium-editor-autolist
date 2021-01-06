@@ -7,9 +7,6 @@
     "type": "git",
     "url": "git+https://github.com/gruberro/medium-editor-autolist.git"
   },
-  "scripts": {
-    "prepare": "cp dist/autolist.js index.js"
-  },
   "keywords": [
     "medium-editor",
     "extension",
