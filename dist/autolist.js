@@ -13,20 +13,27 @@ var AutoList = MediumEditor.Extension.extend({
   name: 'autolist',
   init: function(){
     this.subscribe('editableInput', this.onInput.bind(this));
+    this.autoListLastTrack = null;
   },
   onInput: function (evt) {
     var list_start = this.base.getSelectedParentElement().textContent;
-    if (/^\s*1\.\s/.test(list_start) && this.base.getExtensionByName('orderedlist')){
+    console.log("List start", this.autoListLastTrack, list_start)
+    var is_forward_q = list_start && (!this.autoListLastTrack ||
+                                      (list_start.length > autoListLastTrack.length))
+    if (/^\s*1\.\s$/.test(list_start) && is_forward_q &&
+        this.base.getExtensionByName('orderedlist')){
       this.base.execAction('delete');
       this.base.execAction('delete');
       this.base.execAction('delete');
       this.base.execAction('insertorderedlist');
     }
-    else if (/^\s*(\*|-)\s/.test(list_start) && this.base.getExtensionByName('unorderedlist')){
+    else if (/^\s*(\*|-)\s$/.test(list_start) && is_forward_q &&
+             this.base.getExtensionByName('unorderedlist')){
       this.base.execAction('delete');
       this.base.execAction('delete');
       this.base.execAction('insertunorderedlist');
     }
+    this.autoListLastTrack = list_start;
   },
 });
 
