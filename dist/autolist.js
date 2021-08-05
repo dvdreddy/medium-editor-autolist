@@ -17,9 +17,9 @@ var AutoList = MediumEditor.Extension.extend({
   },
   onInput: function (evt) {
     var list_start = this.base.getSelectedParentElement().textContent;
-    console.log("List start", this.autoListLastTrack, list_start)
+    console.log("List start", this.autoListLastTrack, "'" + list_start + "'")
     var is_forward_q = list_start && (!this.autoListLastTrack ||
-                                      (list_start.length > autoListLastTrack.length))
+                                      (list_start.length > this.autoListLastTrack.length))
     if (/^\s*1\.\s$/.test(list_start) && is_forward_q &&
         this.base.getExtensionByName('orderedlist')){
       this.base.execAction('delete');
